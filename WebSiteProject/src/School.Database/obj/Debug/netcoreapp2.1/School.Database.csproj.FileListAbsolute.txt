@@ -1,0 +1,12 @@
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\bin\Debug\netcoreapp2.1\School.Database.deps.json
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\bin\Debug\netcoreapp2.1\School.Database.runtimeconfig.json
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\bin\Debug\netcoreapp2.1\School.Database.runtimeconfig.dev.json
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\bin\Debug\netcoreapp2.1\School.Database.dll
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\bin\Debug\netcoreapp2.1\School.Database.pdb
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.csprojAssemblyReference.cache
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.AssemblyInfoInputs.cache
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.AssemblyInfo.cs
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.csproj.CoreCompileInputs.cache
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.dll
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.pdb
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Database\obj\Debug\netcoreapp2.1\School.Database.genruntimeconfig.cache
