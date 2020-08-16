@@ -12,18 +12,24 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace School.Web.Controllers
 {
+    using ViewModels;
+
     public class HomeController : Controller
     {
-
-
         private readonly IUserManager userManager;
+        private readonly IUserViewModel userViewModel;
+        private readonly IClassViewModel classViewModel;
 
-        public HomeController(IUserManager userManager)
+        public HomeController(IUserManager userManager, IUserViewModel userViewModel, IClassViewModel classViewModel)
         {
             this.userManager = userManager;
+            this.userViewModel = userViewModel;
+            this.classViewModel = classViewModel;
+
         }
 
         public IActionResult Index()
@@ -71,6 +77,7 @@ namespace School.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = userManager.LogIn(loginModel.UserName, loginModel.Password);
+                userViewModel.CurrentUser = user.ToWebModel();
 
                 if (user == null)
                 {
@@ -135,6 +142,8 @@ namespace School.Web.Controllers
         {
             HttpContext.Session.Remove("User");
 
+            userViewModel.CurrentUser = null;
+
             HttpContext.SignOutAsync(
             CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -154,7 +163,9 @@ namespace School.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                userManager.Register(registerModel.UserEmail, registerModel.Password);
+                var user = userManager.Register(registerModel.UserEmail, registerModel.Password);
+
+                userViewModel.CurrentUser = user.ToWebModel();
 
                 return Redirect("~/");
             }
@@ -165,5 +176,18 @@ namespace School.Web.Controllers
         }
 
 
+
+
+        [Authorize]
+        public ActionResult Classes()
+        {
+            var session = HttpContext.Session;
+            //[ViewData] =
+
+            
+
+            return View(classViewModel.Classes);
+    
+        }
     }
 }

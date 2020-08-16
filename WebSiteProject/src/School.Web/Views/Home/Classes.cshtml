@@ -1,0 +1,42 @@
+﻿@model List<School.Web.Models.Class>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("p").click(function () {
+                $(this).hide(); alert('hello');
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <p>If you click on me, I will disappear.</p>
+    <p>Click me away!</p>
+    <p>Click me too!</p>
+
+
+
+
+    @{
+        ViewBag.Title = Model;
+    }
+
+    <h2>"All Available Classes</h2>
+
+    @foreach (var availableClass in Model)
+    {
+        @String.Format("{0} - {1:c}", availableClass.ClassName, availableClass.ClassPrice)
+        <a asp-action="AddToCart" asp-route-id="@availableClass.ClassId">Enroll</a>
+        <br />
+    }
+
+
+
+
+</body>
+</html>

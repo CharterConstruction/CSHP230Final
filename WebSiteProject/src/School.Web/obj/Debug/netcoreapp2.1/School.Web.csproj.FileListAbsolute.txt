@@ -43,3 +43,4 @@ C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Web\obj\D
 C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\LogIn.cshtml.g.cs
 C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Web\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_LoginPartial.cshtml.g.cs
 C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Register.cshtml.g.cs
+C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Web\obj\Debug\netcoreapp2.1\Razor\Views\Home\Classes.cshtml.g.cs

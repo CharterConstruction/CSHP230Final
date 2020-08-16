@@ -14,7 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using School.Business;
 using School.Repository;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
+using School.Web.ViewModels;
 namespace School.Web
 {
     public class Startup
@@ -31,6 +31,16 @@ namespace School.Web
         {
             services.AddSingleton<IUserManager, UserManager>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IUserViewModel, UserViewModel>();
+
+
+
+            services.AddSingleton<IClassManager, ClassManager>();
+            services.AddSingleton<IClassRepository, ClassRepository>();
+            services.AddSingleton<IClassViewModel, ClassViewModel>();
+
+
+
 
 
             services.AddSession();
