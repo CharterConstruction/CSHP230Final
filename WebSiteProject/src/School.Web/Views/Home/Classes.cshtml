@@ -1,5 +1,5 @@
 ﻿@model List<School.Web.Models.Class>
-
+<!--
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,23 +20,34 @@
     <p>Click me too!</p>
 
 
-
-
-    @{
-        ViewBag.Title = Model;
-    }
-
-    <h2>"All Available Classes</h2>
-
-    @foreach (var availableClass in Model)
-    {
-        @String.Format("{0} - {1:c}", availableClass.ClassName, availableClass.ClassPrice)
-        <a asp-action="AddToCart" asp-route-id="@availableClass.ClassId">Enroll</a>
-        <br />
-    }
-
-
-
-
 </body>
 </html>
+    -->
+
+
+
+@{
+    ViewBag.Title = Model;
+}
+
+<h2>"All Available Classes</h2>
+
+@foreach (var availableClass in Model)
+{
+    @String.Format("{0} - {1:c}", availableClass.ClassName, availableClass.ClassPrice)
+
+
+    @*@Html.ActionLink("Enroll", "Enroll", "Home", new
+    {
+    classId = availableClass.ClassId
+    });*@
+
+
+    <a asp-action="Enroll" asp-route-id="@availableClass.ClassId">Enroll</a>
+
+
+
+    <br />
+}
+
+

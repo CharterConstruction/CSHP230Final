@@ -23,18 +23,18 @@ namespace School.Web.Controllers
         private readonly IUserManager userManager;
         private readonly IUserViewModel userViewModel;
         private readonly IClassViewModel classViewModel;
+        private readonly IUserClassManager userClassManager;
 
-        public HomeController(IUserManager userManager, IUserViewModel userViewModel, IClassViewModel classViewModel)
+        public HomeController(IUserManager userManager, IUserViewModel userViewModel, IClassViewModel classViewModel, IUserClassManager userClassManager)
         {
             this.userManager = userManager;
             this.userViewModel = userViewModel;
             this.classViewModel = classViewModel;
-
+            this.userClassManager = userClassManager;
         }
 
         public IActionResult Index()
-        {
-            //s
+        {            
             return View();
         }
 
@@ -70,6 +70,9 @@ namespace School.Web.Controllers
             ViewData["ReturnUrl"] = Request.Query["returnUrl"];
             return View();
         }
+
+
+
 
         [HttpPost]
         public ActionResult LogIn(LoginModel loginModel, string returnUrl)
@@ -138,6 +141,8 @@ namespace School.Web.Controllers
             return View(loginModel);
         }
 
+
+
         public ActionResult LogOff()
         {
             HttpContext.Session.Remove("User");
@@ -157,6 +162,10 @@ namespace School.Web.Controllers
         {
             return View();
         }
+
+
+
+
 
         [HttpPost]
         public ActionResult Register(RegisterModel registerModel)
@@ -178,16 +187,49 @@ namespace School.Web.Controllers
 
 
 
-        [Authorize]
+        
         public ActionResult Classes()
         {
             var session = HttpContext.Session;
-            //[ViewData] =
-
-            
-
-            return View(classViewModel.Classes);
-    
+            return View(classViewModel.Classes);    
         }
+
+
+        public ActionResult UserClasses()
+        {
+            var user = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("User"));
+
+            var userClasses = userClassManager.GetUserClasses(user.UserId).Select(t => t.ToWebModel()).ToList();
+                
+
+            return View(userClasses);
+        }
+
+
+
+
+        [HttpPost]        
+        public ActionResult Enroll(int classId)
+        {
+            var user = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("User"));
+
+            var userClass = userClassManager.Add(user.UserId, classId).ToWebModel();
+
+            return RedirectToAction("UserClasses");
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

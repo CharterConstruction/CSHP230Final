@@ -40,7 +40,8 @@ namespace School.Web
             services.AddSingleton<IClassViewModel, ClassViewModel>();
 
 
-
+            services.AddSingleton<IUserClassManager, UserClassManager>();
+            services.AddSingleton<IUserClassRepository, UserClassRepository>();
 
 
             services.AddSession();

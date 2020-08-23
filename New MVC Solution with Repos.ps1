@@ -130,7 +130,6 @@ dotnet add package AutoMapper
 
 
 $dbNameCleaned = $database.replace("-","");
-
 $dbContextFileName = $dbNameCleaned + "Context.cs"
 $DbContextFile = Get-ChildItem -Path $("$srcDir\$DatabaseNamespace\Models") -Filter $dbContextFileName
 

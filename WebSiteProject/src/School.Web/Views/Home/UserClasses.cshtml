@@ -1,0 +1,17 @@
+﻿@model List<School.Web.Models.UserClass>
+
+
+@{
+    ViewBag.Title = Model;
+}
+
+<h2>My Classes</h2>
+
+@foreach (var myClass in Model)
+{
+    @String.Format("{0}", myClass.Class.ClassName)
+    <a asp-action="DropOut" asp-route-id="@myClass.ClassId">Drop Out</a>
+    <br />
+}
+
+
