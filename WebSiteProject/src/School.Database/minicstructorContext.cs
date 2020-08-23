@@ -4,6 +4,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace School.Database.Models
 {
+
+    //Scaffold-DbContext 'Data Source=localhost;Initial Catalog=mini-cstructor;integrated security=True' Microsoft.EntityFrameworkCore.SqlServer -o Models -Force
+
+
     public partial class minicstructorContext : DbContext
     {
         public minicstructorContext()

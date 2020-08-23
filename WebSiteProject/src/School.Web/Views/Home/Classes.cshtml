@@ -1,53 +1,37 @@
 ﻿@model List<School.Web.Models.Class>
-<!--
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $("p").click(function () {
-                $(this).hide(); alert('hello');
-            });
-        });
-    </script>
-</head>
-<body>
-
-    <p>If you click on me, I will disappear.</p>
-    <p>Click me away!</p>
-    <p>Click me too!</p>
-
-
-</body>
-</html>
-    -->
-
-
 
 @{
     ViewBag.Title = Model;
 }
 
-<h2>"All Available Classes</h2>
-
-@foreach (var availableClass in Model)
+<h2>Available Classes</h2>
+<br />
+@if (@TempData["Message"] != null)
 {
-    @String.Format("{0} - {1:c}", availableClass.ClassName, availableClass.ClassPrice)
-
-
-    @*@Html.ActionLink("Enroll", "Enroll", "Home", new
-    {
-    classId = availableClass.ClassId
-    });*@
-
-
-    <a asp-action="Enroll" asp-route-id="@availableClass.ClassId">Enroll</a>
-
-
-
-    <br />
+    <div class="alert-info">
+        @TempData["Message"];
+    </div>
 }
+<div>
+    @foreach (var availableClass in Model)
+    {
+
+
+        <div>
+            <h4>
+                <b>@availableClass.ClassName</b>
+            </h4>
+            @availableClass.ClassDescription
+            <br/>
+            <a asp-action="Enroll" asp-route-classId="@availableClass.ClassId">@String.Format("Enroll for {0:c}", availableClass.ClassPrice)</a>
+            <br/>
+
+        </div>
+
+
+    }
+
+</div>
+
 
 

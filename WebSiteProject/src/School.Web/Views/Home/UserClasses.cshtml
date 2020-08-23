@@ -7,10 +7,35 @@
 
 <h2>My Classes</h2>
 
+@if (@TempData["Error"] != null)
+{
+    <div class="alert-warning">
+        @TempData["Error"];
+    </div>
+    <p />
+}
+
+
+@if (@TempData["Success"] != null)
+{
+    <div class="alert-success">
+        @TempData["Success"];
+    </div>
+}
+
+@if (@TempData["Message"] != null)
+{
+    <div class="alert-info">
+        @TempData["Message"];
+    </div>
+    <p />
+}
+
+
 @foreach (var myClass in Model)
 {
     @String.Format("{0}", myClass.Class.ClassName)
-    <a asp-action="DropOut" asp-route-id="@myClass.ClassId">Drop Out</a>
+    <a asp-action="DropOut" asp-route-classId="@myClass.ClassId">Drop Out</a>
     <br />
 }
 

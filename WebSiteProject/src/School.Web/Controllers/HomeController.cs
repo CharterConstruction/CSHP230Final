@@ -191,16 +191,36 @@ namespace School.Web.Controllers
         public ActionResult Classes()
         {
             var session = HttpContext.Session;
-            return View(classViewModel.Classes);    
+
+            List<Models.Class> availableClasses = new List<Models.Class>();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userClassIds = GetUserClasses().Select(t=>t.ClassId);
+                availableClasses = classViewModel.Classes.Where(t => !userClassIds.Contains(t.ClassId)).ToList();
+            }
+            else
+            {
+                availableClasses = classViewModel.Classes;
+            }
+
+            return View(availableClasses);    
         }
 
-
+        
+        [Authorize]
         public ActionResult UserClasses()
-        {
-            var user = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("User"));
+        {            
+            var userClasses = GetUserClasses();
 
-            var userClasses = userClassManager.GetUserClasses(user.UserId).Select(t => t.ToWebModel()).ToList();
-                
+            if (!userClasses.Any())
+            {
+                TempData["Message"] = $"You are not enrolled in any classes";
+            }
+            else
+            {
+                TempData["Message"] = $"You are enrolled in the following {userClasses.Count} classes:{Environment.NewLine}";
+            }
 
             return View(userClasses);
         }
@@ -208,24 +228,90 @@ namespace School.Web.Controllers
 
 
 
-        [HttpPost]        
+        [Authorize]
         public ActionResult Enroll(int classId)
         {
+
+            var existingEnrolledClassIds = GetUserClasses().Select(t => t.ClassId);
+
+            if (existingEnrolledClassIds.Contains(classId))
+            {
+                var existingClass = classViewModel.Class(classId);                
+                TempData["Message"] = $"You are already enrolled in {existingClass.ClassName}.";
+
+                return RedirectToAction("Classes");
+            }
+
             var user = JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("User"));
 
             var userClass = userClassManager.Add(user.UserId, classId).ToWebModel();
 
             return RedirectToAction("UserClasses");
 
+  
+
+        }
+
+        [Authorize]
+        public ActionResult DropOut(int classId)
+        {
+            var user = GetLoggedOnUser();
+            var existingEnrolledClassIds = GetUserClasses().Select(t => t.ClassId);
+            var targetClass = classViewModel.Class(classId);
+
+            if(targetClass == null)
+            {
+                TempData["Error"] = $"No class was found with ID: {classId}";
+                return RedirectToAction("UserClasses");
+            }
+
+            if (existingEnrolledClassIds.Contains(classId))
+            {
+                var isClassRemoved = userClassManager.Remove(user.UserId, classId);
+                
+
+                if (isClassRemoved)
+                {                 
+                    TempData["Success"] = $"You have successfully dropped out of '{targetClass.ClassName}'";
+                }
+                else
+                {
+                    TempData["Error"] = $"Your request to drop out of class '{targetClass.ClassName}' has failed.  Please contact IT.";
+                }                            
+
+            }
+            else
+            {
+                TempData["Error"] = $"You are not enrolled in '{targetClass.ClassName}'.  Ignoring request.";                
+            }
+
+            return RedirectToAction("UserClasses");
         }
 
 
 
 
+        private Models.User GetLoggedOnUser()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                return JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("User"));
+            }
+            else
+            {
+                return null;
+            }
 
 
+            //return JsonConvert.DeserializeObject<Models.User>(HttpContext.Session.GetString("User"));
+        }
 
 
+        private List<Models.UserClass> GetUserClasses()
+        {
+            var user = GetLoggedOnUser();
+            return userClassManager.GetUserClasses(user.UserId).Select(t => t.ToWebModel()).ToList();
+        }
 
 
 
