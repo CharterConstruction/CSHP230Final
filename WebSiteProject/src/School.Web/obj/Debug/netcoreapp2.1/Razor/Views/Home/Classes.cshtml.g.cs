@@ -121,7 +121,7 @@ using School.Web.Models;
             WriteLiteral("\r\n            <br/>\r\n            ");
             EndContext();
             BeginContext(469, 132, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "58fd137ce74a476c9140cedc8cc3f397", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c122bda5e17a479a8df842351197f874", async() => {
                 BeginContext(537, 60, false);
 #line 26 "C:\Users\philg\Documents\GitHub\CSHP230Final\WebSiteProject\src\School.Web\Views\Home\Classes.cshtml"
                                                                           Write(String.Format("Enroll for {0:c}", availableClass.ClassPrice));

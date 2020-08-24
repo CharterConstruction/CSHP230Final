@@ -80,7 +80,7 @@ namespace School.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = userManager.LogIn(loginModel.UserName, loginModel.Password);
-                userViewModel.CurrentUser = user.ToWebModel();
+                
 
                 if (user == null)
                 {
@@ -90,11 +90,15 @@ namespace School.Web.Controllers
                 {
                     var json = JsonConvert.SerializeObject(new School.Web.Models.User
                     {
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
                         UserId = user.UserId,
                         UserEmail = user.UserEmail
                     });
 
                     HttpContext.Session.SetString("User", json);
+                    
+                    userViewModel.CurrentUser = user.ToWebModel();
 
                     var claims = new List<Claim>
                     {
@@ -172,7 +176,7 @@ namespace School.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = userManager.Register(registerModel.UserEmail, registerModel.Password);
+                var user = userManager.Register(registerModel.FirstName, registerModel.LastName, registerModel.UserEmail, registerModel.Password);
 
                 userViewModel.CurrentUser = user.ToWebModel();
 

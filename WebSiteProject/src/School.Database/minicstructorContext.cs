@@ -1,12 +1,12 @@
-﻿using System;
+﻿//Scaffold-DbContext 'Data Source=;Initial Catalog=;integrated security=True' Microsoft.EntityFrameworkCore.SqlServer -o Models -Force
+
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace School.Database.Models
+namespace School.Database
 {
-
-    //Scaffold-DbContext 'Data Source=localhost;Initial Catalog=mini-cstructor;integrated security=True' Microsoft.EntityFrameworkCore.SqlServer -o Models -Force
-
+    using Models;
 
     public partial class minicstructorContext : DbContext
     {
@@ -28,7 +28,7 @@ namespace School.Database.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=mini-cstructor;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=mini-cstructor;integrated security=True");
             }
         }
 
@@ -51,6 +51,14 @@ namespace School.Database.Models
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.Property(e => e.FirstName)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.LastName)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.UserEmail)
                     .IsRequired()
                     .HasMaxLength(50);

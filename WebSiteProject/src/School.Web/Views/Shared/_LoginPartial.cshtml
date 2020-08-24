@@ -1,29 +1,35 @@
 @using Microsoft.AspNetCore.Http;
 @using Newtonsoft.Json;
 
-@if (Context.Session.GetString("User") != null)
-{
-    <form asp-action="Logoff" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
+
+
+<form asp-action="Logoff" class="navbar-right">
+
+    <ul class="nav navbar-nav navbar-right">
+        @if (Context.Session.GetString("User") != null)
+        {
+
             <li>
                 @{
                     var user = JsonConvert.DeserializeObject<User>(Context.Session.GetString("User"));
                 }
-                <a asp-action="manage" title="Manage">Hello @user.UserEmail</a>
+                <a asp-action="manage" title="Manage">Hello @user.Name</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link">Logout</button>
             </li>
-        </ul>
-    </form>
-}
-else
-{
-    <ul class="nav navbar-nav navbar-right">
+
+        }
+        else
+        {
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><a asp-action="register">Register</a></li>
+                <li><a asp-action="login">Login</a></li>
+            </ul>
+        }
         <li>
-            <img src="~/images/aspnet-mvc-webstore-shopping-cart-image.png" />
+            <img src="~/images/school50.png" width="40" />
         </li>
-        <li><a asp-action="register">Register</a></li>
-        <li><a asp-action="login">Login</a></li>
     </ul>
-}
+</form>
