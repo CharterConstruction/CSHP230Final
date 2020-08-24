@@ -1,0 +1,37 @@
+﻿@model List<School.Web.Models.Class>
+
+@{
+    ViewBag.Title = Model;
+}
+
+<h2>Available Classes</h2>
+<br />
+@if (@TempData["Message"] != null)
+{
+    <div class="alert-info">
+        @TempData["Message"];
+    </div>
+}
+<div>
+    @foreach (var availableClass in Model)
+    {
+
+
+        <div>
+            <h4>
+                <b>@availableClass.ClassName</b>
+            </h4>
+            @availableClass.ClassDescription
+            <br/>
+            <a asp-action="Enroll" asp-route-classId="@availableClass.ClassId">@String.Format("Enroll for {0:c}", availableClass.ClassPrice)</a>
+            <br/>
+
+        </div>
+
+
+    }
+
+</div>
+
+
+

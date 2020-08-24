@@ -1,0 +1,1 @@
+﻿Invoke-RestMethod -Method Get -Uri http://localhost:1416/api/Users

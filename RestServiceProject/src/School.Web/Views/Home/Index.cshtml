@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-2">
+        <h2>@Html.ActionLink("Classes", "Classes", "Home")</h2>
+        <ul>
+            <li>View all available classes and enroll.</li>            
+        </ul>
+    </div>
+    <div class="col-md-3">
+        <h2>@Html.ActionLink("My Classes", "UserClasses", "Home")</h2>
+        <ul>
+            <li>View the classes that you are enrolled in.</li>
+        </ul>
+    </div>
+
+</div>
