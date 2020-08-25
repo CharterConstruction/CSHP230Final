@@ -21,14 +21,6 @@ namespace School.API.Models
 		[StringLength(25, MinimumLength = 4, ErrorMessage = "Password must be between 4-25 characters in length")]
 		public string Password { get; set; }
 
-
-        [Required]
-        [DataType(DataType.Password)]
-		[StringLength(25, MinimumLength = 4, ErrorMessage = "Password must be between 4-25 characters in length")]
-		[Compare("Password")]
-        [Display(Name = "Confirm Password")]
-        public string ConfirmPassword { get; set; }
-
 		[Required]
 		[Display(Name = "First Name")]
 		[StringLength(25, MinimumLength = 2, ErrorMessage = "First Name must be between 2-25 characters in length")]

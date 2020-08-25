@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace School.API.Controllers
 {
-    using Business;
+    //using Business;
+    using Models;
 
 
     [Route("api/[controller]")]
@@ -16,12 +17,12 @@ namespace School.API.Controllers
     public class UsersController : ControllerBase
     {
 
-        private readonly IUserManager userManager;
-        private readonly IClassManager classManager;
-        private readonly IUserClassManager userClassManager;
+        private readonly Business.IUserManager userManager;
+        private readonly Business.IClassManager classManager;
+        private readonly Business.IUserClassManager userClassManager;
         
 
-        public UsersController(IUserManager userManager, IClassManager classManager, IUserClassManager userClassManager)
+        public UsersController(Business.IUserManager userManager, Business.IClassManager classManager, Business.IUserClassManager userClassManager)
         {
             this.userManager = userManager;
             this.classManager = classManager;            
@@ -33,21 +34,45 @@ namespace School.API.Controllers
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            var users = userManager.Users;
+            var users = userManager.Users.Select(t=>t.ToWebModel());
             return users;
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public User Get(int id)
         {
-            return "value";
+            return userManager.User(id).ToWebModel();
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] RegisterModel value)
         {
+            if (value == null)
+            {
+                return new BadRequestResult();
+            }
+
+            var result = userManager.Register(value.FirstName, value.LastName, value.UserEmail, value.Password);
+
+
+            if(result == null)
+            {
+                return new BadRequestResult();
+            }
+            else
+            {
+                School.API.Models.User newUser = result.ToWebModel();
+
+
+                return CreatedAtAction(nameof(Get),
+                   new { id = newUser.UserId },
+                    newUser);
+            }
+
+            //var result = new { Id = value.Id, Candy = true };
+
         }
 
         // PUT api/<UsersController>/5
@@ -58,8 +83,9 @@ namespace School.API.Controllers
 
         // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public bool Delete(int id)
         {
+            return userManager.Remove(id);
         }
     }
 }

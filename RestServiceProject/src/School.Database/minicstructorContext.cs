@@ -51,6 +51,8 @@ namespace School.Database
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.Property(e => e.CreateDate).HasColumnType("datetime");
+
                 entity.Property(e => e.FirstName)
                     .HasMaxLength(25)
                     .IsUnicode(false);
