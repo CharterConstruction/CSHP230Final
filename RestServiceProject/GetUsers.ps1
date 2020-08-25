@@ -4,11 +4,13 @@ $userUri = $baseUri + "Users"
 
 $newUser = 
 '{
-"FirstName"    : "API",
-"LastName"     : "POST",
 "UserEmail"    : "test@api.com",
-"Password" : "password123"
+"Password" : "password123",
+"FirstName"    : "API",
+"LastName"     : "POST"
 }'
+
+#$JSON = ConvertTo-JSON($newUser)
 
 
 Invoke-RestMethod -Method Post -Uri $userUri -body $newUser
